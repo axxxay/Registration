@@ -1,9 +1,38 @@
 import './App.css';
+import React, {useState} from 'react';
 
 function App() {
+  const [data, setData] = useState({
+    phoneNumber: '',
+    userName: '',
+    email: '',
+    referralCode: ''
+  })
+  
+  const {userName, email, phoneNumber, referralCode} = data;
+  const changeHandler = e => {
+    setData({...data,[e.target.name]:[e.target.value]})
+  }
+
+  
+  const submitHandler = e => {
+    e.preventDefault();
+    if(phoneNumber===""){
+      return alert("Phone number is Required");
+    } else if (userName === "") {
+      return alert("User name is Required");
+    } else if (email===""){
+      return alert("Email is Required");
+    } else if (referralCode===""){
+      return alert("Referral Code is Required");
+    } else {
+      console.log(data);
+    }
+  }
+
   return (
-    <div className="bg-container">
-        <form className="main-container" id="myForm" >
+    <div className="bg-container"> 
+        <form className="main-container" id="myForm" onSubmit={submitHandler}>
             <div className="header-container">
                 <i className="fa-sharp fa-solid fa-xmark icon"></i>
                 <img src="https://i.ibb.co/MDG6qFw/Screenshot-2023-04-21-115030.png" alt="logo" className="logo" draggable="false" />
@@ -19,10 +48,9 @@ function App() {
                     <option value="+61">+61</option>
                     <option value="+52">+52</option>
                 </select>
-                <input type="text" name="mobile number" maxlength="10" autocomplete="mobile" className="select-options input-box-phone" placeholder="Phone" id="phoneNumber" />
-                <p className="warning" id="phoneWarning"></p>
+                <input type="text" name="phoneNumber" value={phoneNumber} onChange={changeHandler} maxLength="10" autoComplete="on" className="select-options input-box-phone" placeholder="Phone" id="phoneNumber" />
             </div>
-            <input type="text" name="Name" maxlength="10" autocomplete="name" className="select-options input-box-name" placeholder="Name" id="userName" />
+            <input type="text" name="userName" value={userName} onChange={changeHandler} autoComplete="on" className="select-options input-box-name" placeholder="Name" id="userName" />
             <div className="dob-container">
                 <span className="dob-text">Date of birth</span>
                 <select className="date-of-birth select-options" id="day">
@@ -101,53 +129,28 @@ function App() {
                     <option value="2001">2001</option>
                 </select>
             </div>
-            <input type="email" name="Email" maxlength="10" autocomplete="name" className="select-options input-box-name" placeholder="Email" id="email" />
-            <input type="text" name="Referral code" maxlength="10" autocomplete="name" className="select-options input-box-name referral-code" placeholder="Referral code" id="referralCode" />
+            <input type="email" name="email" value={email} onChange={changeHandler} autoComplete="on" className="select-options input-box-name" placeholder="Email" id="email" />
+            <input type="text" name="referralCode" value={referralCode} onChange={changeHandler} autoComplete="on" className="select-options input-box-name referral-code" placeholder="Referral code" id="referralCode" />
             <p className="updates-text">Keep me updated about my orders, account & offers on:</p>
             <div className="updates-checkboxes">
                 <div className="each-box">
-                    <input type="checkbox" name="email" id="email" className="checkbox" />
-                    <label for="email" className="label">Email</label>
+                    <input type="checkbox" name="email1" id="email1" className="checkbox" />
+                    <label htmlFor="email1" className="label">Email</label>
                 </div>
                 <div className="each-box">
                     <input type="checkbox" name="phone" id="phone" className="checkbox" />
-                    <label for="phone" className="label">Phone</label>
+                    <label htmlFor="phone" className="label">Phone</label>
                 </div>
                 <div className="each-box">
                     <input type="checkbox" name="whatsapp" id="whatsapp" className="checkbox" />
-                    <label for="whatsapp" className="label">WhatsApp</label>
+                    <label htmlFor="whatsapp" className="label">WhatsApp</label>
                 </div>
             </div>
-            <button className="button" type="submit" id="submitButton">CONTINUE</button>
+            <button className="button" type="submit" id="submitButton" name='submit'>CONTINUE</button>
             <p className="updates-text terms-and-privacy">By clicking on Login, I accept the <span><a href="/"  className="terms">Terms & Conditions </a></span>& <span><a href="/" className="terms">Privacy Policy</a></span></p>
         </form>
     </div>
   );
 
 }
-
-// let phoneNumber = document.getElementById("phoneNumber");
-// let userName = document.getElementById("userName");
-// let day = document.getElementById("day");
-// let month = document.getElementById("month");
-// let year = document.getElementById("year");
-// let email = document.getElementById("email");
-// let myForm1 = document.getElementById("myForm");
-
-// myForm1.addEventListener("submit", () => {
-//   if(phoneNumber.value === "") {
-//     return alert("Please enter phone number!");
-//   } else if(userName.value==="") {
-//     return alert("Please enter your name");
-//   } else if (day.value === "DD") {
-//     return alert("Please select a valid date");
-//   } else if (month.value === "MM") {
-//     return alert("Please select a valid month");
-//   } else if (year.value === "YYYY") {
-//     return alert("Please select a valid year");
-//   } else if (email.value === "") {
-//     return alert("Please enter your email");
-//   }
-// });
-
 export default App;
